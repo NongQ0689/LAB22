@@ -59,15 +59,50 @@ void Unit::showStatus(){
 	}
 }
 
-void Unit::newTurn(){
-	guard_on = false;
-}
+
 
 
 
 /////////////////////////////////////////////////////////////////////////////////////
 //Write function members isDead(), guard(), heal(), beAttacked(), and attack() here//
 /////////////////////////////////////////////////////////////////////////////////////
+
+
+bool Unit::isDead(){
+	if (hp<=0) return true;
+	else return false;
+}
+
+void Unit::guard(){
+	guard_on = true;
+}
+
+int Unit::beAttacked(int oppatk){
+	int X;
+	X = (oppatk-def)/(1+2*guard_on);
+	hp -= X;
+	return X;
+}
+
+int Unit::attack(Unit &X){
+	return X.beAttacked(atk);
+}
+
+int Unit::heal()
+{
+	int x = rand()%21+10;
+	int y ;
+	y=hpmax-hp;
+	hp +=x;
+	if (hp>hpmax)	hp=hpmax;
+	if (x>y) return y;
+	else return x;
+}
+
+void Unit::newTurn()
+{
+	guard_on = false;
+}
 
 
 
